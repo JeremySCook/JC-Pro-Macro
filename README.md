@@ -10,6 +10,8 @@ I2C pins are broken out and arranged for use with SSD1306-based OLED screens
 Current program includes diagnostic code for this type of screen, the pins
 could theoretically be used for anything.
 
+![image](JCPMPartAssy.jpg)
+
 More info to come!
 
 Uses HID Project software by NicoHood: https://github.com/NicoHood/HID  
