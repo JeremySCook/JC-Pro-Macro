@@ -14,3 +14,5 @@ More info to come!
 
 Uses HID Project software by NicoHood: https://github.com/NicoHood/HID  
 My previous rotary input project: https://github.com/JeremySCook/RotaryControl
+
+https://twitter.com/JeremySCook/status/1414996190547042306
