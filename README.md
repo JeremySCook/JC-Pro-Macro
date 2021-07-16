@@ -1,4 +1,7 @@
 # JC-Pro-Macro
+
+![image](JCPMRender.png)
+
 Macro keypad and rotary input based on the ATmega32U4 Pro Micro board
 
 Includes rotary encoder, 5 keyboard-style switches, 4 RGB LEDs.
