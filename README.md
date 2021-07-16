@@ -8,3 +8,6 @@ Current program includes diagnostic code for this type of screen, the pins
 could theoretically be used for anything.
 
 More info to come!
+
+Uses HID Project software by NicoHood: https://github.com/NicoHood/HID  
+My previous rotary input project: https://github.com/JeremySCook/RotaryControl
