@@ -1,2 +1,2 @@
-Current code is written and tested on a Macintosh -  
+Current (ProMacro.ino) code is written and tested on a Macintosh -  
 should work with a PC or Linux, possibly with some modifications.
