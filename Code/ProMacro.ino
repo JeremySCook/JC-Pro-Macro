@@ -1,3 +1,15 @@
+//Example for JC Pro Macro board
+//set up to work in Mac OS
+//Includes support for 1306 display
+//Reference: https://github.com/NicoHood/HID/blob/master/src/KeyboardLayouts/ImprovedKeylayouts.h
+//Reference: https://arduinogetstarted.com/tutorials/arduino-button-long-press-short-press 
+//
+//To do:
+//Figure out what to do with bottom support - remake offset so locks in?
+//caps lock code? - does not work properly on Mac it seems
+
+//========================================================
+
 #include <SPI.h>
 #include <Wire.h>
 
@@ -16,8 +28,6 @@ long newPosition;
 int inputMode = 0;
 int LEDLight = 1;
 int LEDCircle[4] = {0, 1, 3, 2};
-long randNumber;
-long randNumber1;
 
 //Long Press Setup==================================================
 
@@ -139,21 +149,13 @@ void loop() {
   //when it's "off" as well and wait for next cycle
   //have some sort of secondary oldPosition comparison?
 
-if ((inputMode == 0) && (SW1 == 0)){ 
-  inputMode = 1;
-  SW1 = 1;
-  delay(200);
-}
-if ((inputMode == 1) && (SW1 == 0)){ 
-  inputMode = 0;
-  SW1 = 1;
-  delay(200);
-}
-
 //================================
 
 screen();
-volume();
+
+//======select input mode:=======
+
+if (inputMode == 0) volume();
 if (inputMode == 1) jiggler();
 
 //Serial.println(inputMode);
@@ -183,6 +185,17 @@ void screen(){
 }
 
 void volume(){
+
+//====Pixels indicate input mode==============
+
+//  pixels.clear();
+//  for(int i=0; i<NUMPIXELS; i++){
+//    pixels.setPixelColor(i, pixels.Color(10, 0, 0));
+//  }
+//  pixels.show(); // Show results
+
+//===============================================
+
   if (increment == 1) {
         Consumer.write(MEDIA_VOLUME_UP);
         if (LEDLight == 3) LEDLight = 0;
@@ -231,14 +244,39 @@ void volume(){
         Consumer.write(MEDIA_PREVIOUS);
         delay(50);
       }
+  if (SW1 == 0){ 
+  inputMode = 1;
+  SW1 = 1;
+  delay(200);
+  }
 }
 
 void jiggler(){
   Serial.print("commence to jiggling");
       //Consumer.write(MEDIA_VOLUME_UP);
       //Consumer.write(MEDIA_VOLUME_DOWN);
-      randNumber = random(-50, 50);
-      randNumber1 = random(-50, 50);
+      long randNumber = random(-50, 50);
+      long randNumber1 = random(-50, 50);
+      long randNumber2 = random(-50, 50);
       Mouse.move(randNumber, randNumber1);
+      delay(100);
+      int xMap = map(randNumber, -50, 50, 0, 100);
+      int yMap = map(randNumber1, -50, 50, 0, 100);
+      int zMap = map(randNumber2, -50, 50, 0, 100);
+      pixels.setPixelColor(0, pixels.Color(xMap, yMap, zMap));
+      pixels.setPixelColor(2, pixels.Color(zMap,xMap,yMap));
+      pixels.setPixelColor(1, pixels.Color(yMap, zMap, xMap));
+      pixels.setPixelColor(3, pixels.Color(xMap, zMap, yMap));           
+      pixels.show(); // Show results
+      if (SW1 == 0){ 
+      pixels.clear();
+      for(int i=0; i<NUMPIXELS; i++){
+      pixels.setPixelColor(i, pixels.Color(10, 0, 0));
+    }
+      pixels.show(); // Show results
+      inputMode = 0;
       delay(200);
+    }
 }
+
+//void FCPX() mode
