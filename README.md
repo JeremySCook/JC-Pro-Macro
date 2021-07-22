@@ -2,7 +2,7 @@
 
 ![image](JCPMRender.png)
 
-Macro keypad and rotary input based on the ATmega32U4 Pro Micro board
+Macro keypad and rotary input based on the ATmega32U4 Pro Micro, as seen here: https://www.youtube.com/watch?v=8qgGteDjMGc
 
 Includes rotary encoder, 5 keyboard-style switches, 4 RGB LEDs.
 
