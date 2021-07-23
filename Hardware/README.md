@@ -6,9 +6,8 @@ KeySwitches - [Amazon](https://amzn.to/3iFpGQH)
 "Arduino" Pro Micro - [Amazon](https://amzn.to/2UALftK)
 
 Note that a variety of keyswitches and encoders will work, examples are provided for your reference.
-The Pro Micro is available as an option with the PCB, and other parts may be avaialble there in
-the future.
+The Pro Micro is available on Tindie, along with some other components.
 
-As shown in the video, you can even take apart a keyboard for this if you like.
+As shown in the video, you can even take apart a keyboard to harvest parts if you like.
 
 Amazon links are affiliate, meaning I get a small percentage of sales.
