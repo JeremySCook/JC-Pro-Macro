@@ -139,11 +139,18 @@ void loop() {
 
   newPosition = myEnc.read();
   
-  if (newPosition > (oldPosition + 1)) increment = 1;
-  if (newPosition < (oldPosition - 1)) decrement = 1;
+  if (newPosition > (oldPosition + 2)) { 
+    increment = 1;
+    delay(5);
+    oldPosition = myEnc.read();
+  }
+  if (newPosition < (oldPosition - 2)) {
+    decrement = 1;
+    delay(5);
+    oldPosition = myEnc.read();
+  }
 
-  oldPosition = newPosition;
-  delay(5);
+  //oldPosition = newPosition;
     
   //delay(100); **need a better way to debounce, or to send a single keystroke - maybe sense
   //when it's "off" as well and wait for next cycle
