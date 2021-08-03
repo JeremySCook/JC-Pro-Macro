@@ -6,7 +6,7 @@ KeySwitches - [Amazon](https://amzn.to/3iFpGQH)
 "Arduino" Pro Micro - [Amazon](https://amzn.to/2UALftK)
 
 Depending on preference, and for potentially better performance, user may choose to desolder  
-or otherwise **disable LEDs** (or lack thereof) shown below:
+or otherwise **disable LEDs** (or lack thereof) on the Pro Micro as shown below:
 
 ![image](led-destroy.jpg)
 
