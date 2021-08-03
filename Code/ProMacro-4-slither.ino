@@ -29,6 +29,9 @@ int inputMode = 0;
 int LEDLight = 1;
 int LEDCircle[4] = {0, 1, 3, 2};
 int counter = 0;
+bool nascar = 0;
+long newNascarTurnTime = 0;
+long oldNascarTurnTime = 0;
 
 //Long Press Setup==================================================
 
@@ -343,6 +346,27 @@ if ((SW2 == 1) && (SW3 == 1) && (SW4 == 1)){
         Keyboard.releaseAll();
         delay(5);
 }
+
+//worm auto turn input - NASCAR mode: all left turns
+
+if ((SW5 == 0) && (nascar == 0)){
+  nascar = 1;
+  delay(20);
+}
+
+else if ((SW5 == 0) && (nascar ==1)){
+  nascar = 0;
+  delay(20);
+}
+
+if (nascar == 1){
+  newNascarTurnTime = millis();
+  if ((newNascarTurnTime - oldNascarTurnTime) > 200){
+    decrement = 1;
+    oldNascarTurnTime = newNascarTurnTime;
+  }
+}
+
 
 //switch mode routine==================================================
       if (SW1 == 0){ 
