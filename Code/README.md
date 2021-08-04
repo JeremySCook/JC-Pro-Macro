@@ -18,4 +18,6 @@ and speed up with the three bottom buttons.
 
 Promacro-5-fan.ino includes a PWM output for the broken out pins on the right side that aligns with a standard PC PWM fan.
 Allows you to chang the fan's speed from 0 - off to 5 - full power. Tested with a 12V Noctua fan: https://amzn.to/3jjgQIV (Amazon).
-5V may work better https://amzn.to/3A8RofR though not yet tested, and color scheme is questionable.
+5V may work better https://amzn.to/3A8RofR (Amazon) though not yet tested, and color scheme is questionable.
+
+Amazon links are affiliate, meaning I get a small percentage of sales.
