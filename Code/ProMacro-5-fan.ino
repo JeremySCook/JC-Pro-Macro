@@ -33,6 +33,10 @@ bool nascar = 0;
 long newNascarTurnTime = 0;
 long oldNascarTurnTime = 0;
 int fanSpeed = 0;
+bool fanPulse = 0;
+long newPulseTime = 0;
+long oldPulseTime = 0;
+int fanRPM = 0;
 
 //Long Press Setup==================================================
 
@@ -143,7 +147,7 @@ void loop() {
   SW4 = digitalRead(A1);
   SW5 = digitalRead(A2);
   SW6 = digitalRead(A3);
-  //analogWrite(A7, 0);
+  fanPulse = digitalRead(7);
 
   newPosition = myEnc.read();
   
@@ -207,13 +211,12 @@ void screenFan(){
   display.invertDisplay(0);
   display.setCursor(0,10);
   display.print("Fan ");
-  display.println(fanSpeed);
-  display.print(SW1);
-  display.print(SW2);
-  display.print(SW3);
-  display.print(SW4);
-  display.print(SW5);
-  display.print(SW6);
+  display.print(fanSpeed);
+  display.print(" ");
+  display.println(fanPulse);
+  display.print("T ");
+  display.print(fanRPM);
+  display.print(" ");
   display.print(inputMode);
   display.display();
   //Serial.println(SW1);
@@ -255,18 +258,20 @@ void volume(){
         decrement = 0;
         //delay(10);
       }
-  if (SW6 == 0){ //tab to next browser tab Firefox or Chrome
-        Keyboard.press(KEY_LEFT_CTRL);
+  if (SW6 == 0){ //quick fan up
+        fan();
+        /*Keyboard.press(KEY_LEFT_CTRL);
         Keyboard.press(KEY_TAB);          
         Keyboard.releaseAll();
-        delay(50);
+        delay(50);*/
       }
-  if (SW5 == 0){ //tab to previous browser tab Firefox or Chrome
-        Keyboard.press(KEY_LEFT_SHIFT);
+  if (SW5 == 0){ //quick fan down
+        fan();
+        /*Keyboard.press(KEY_LEFT_SHIFT);
         Keyboard.press(KEY_LEFT_CTRL);
         Keyboard.press(KEY_TAB);
         Keyboard.releaseAll();
-        delay(50);
+        delay(50);*/
       }
   if (SW4 == 0) {
         Consumer.write(MEDIA_PLAY_PAUSE); 
@@ -429,13 +434,11 @@ int fanSpeedScaled = map(fanSpeed, 0, 5, 0, 255);
 analogWrite(6, fanSpeedScaled);
 //Serial.print(fanSpeed); Serial.print(" "); Serial.println(fanSpeedScaled);
 
-/* need to add RPM routine w/ pin 7 - code started, but not finished - RPM pin needs a pullup resistor (used 2k ohm)
-bool fanPulse = digitalRead(7)
 if(fanPulse == 0){
   newPulseTime = millis();
-  fanRPM = (newPulseTime - oldPulseTime) / value that needs to be calculated
+  fanRPM = (newPulseTime - oldPulseTime);
+  oldPulseTime = newPulseTime;
 }
-*/
 
 screenFan();
 
