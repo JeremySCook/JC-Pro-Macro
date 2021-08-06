@@ -1,3 +1,5 @@
+Assembly video: https://www.youtube.com/watch?v=VwfGT706jW0
+
 Items required:
 
 JC Pro Macro Board [Tindie](https://www.tindie.com/products/24327)  
