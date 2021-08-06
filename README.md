@@ -13,7 +13,7 @@ Assembly process:  https://www.youtube.com/watch?v=VwfGT706jW0
 
 Available on Tindie: https://www.tindie.com/products/24327
 
-I2C pins are broken out and arranged for use with SSD1306-based OLED screens
+I2C pins are broken out and arranged for use with SSD1306-based OLED screens  
 Current program includes diagnostic code for this type of screen.  
 2 additional GPIO pins, as well as GND and +5V are broken out, giving a total  
 of 4 GPIO pins that can be used to control external devices (perhaps a small fan)
