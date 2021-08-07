@@ -10,11 +10,11 @@ momentarily after hitting upload in the Arduino IDE in order to reprogram.
 
 ## Slihter.io Mode
 
-![image](slither.jpg)
-
 ProMacro-4-slither.ino includes a third mode for playing slither.io. Tab through modes with encoder button.
 align the mouse with the head of worm and press upper-right keyboard button. You can then steer the worm with the encoder
 and speed up with the three bottom buttons.
+
+![image](slither.jpg)
 
 ## Experimental Fan Mode
 
