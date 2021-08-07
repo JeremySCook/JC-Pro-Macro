@@ -28,6 +28,9 @@ Tested with a 12V Noctua fan: https://amzn.to/3jjgQIV (Amazon).
 ProMacro-6-music.ino allows you to connect a small speaker to GPIO pin 7 to play a number of notes.
 Demo: https://twitter.com/JeremySCook/status/1423705079153139716
 
+
+![image](tone.jpg)
+
 ## Experimental Final Cut Pro X Mode
 
 ProMacro-6-FCPX.ino adds a mode where the wheel acts as a jog wheel. Press down to stop. Press down & lower-right button
