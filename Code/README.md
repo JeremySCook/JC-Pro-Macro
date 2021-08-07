@@ -10,6 +10,8 @@ momentarily after hitting upload in the Arduino IDE in order to reprogram.
 
 ## Slihter.io Mode
 
+![image](slither.jpg)
+
 ProMacro-4-slither.ino includes a third mode for playing slither.io. Tab through modes with encoder button.
 align the mouse with the head of worm and press upper-right keyboard button. You can then steer the worm with the encoder
 and speed up with the three bottom buttons.
@@ -27,7 +29,6 @@ Tested with a 12V Noctua fan: https://amzn.to/3jjgQIV (Amazon).
 
 ProMacro-6-music.ino allows you to connect a small speaker to GPIO pin 7 to play a number of notes.
 Demo: https://twitter.com/JeremySCook/status/1423705079153139716
-
 
 ![image](tone.jpg)
 
