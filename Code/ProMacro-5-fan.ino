@@ -247,7 +247,7 @@ void volume(){
         //delay(10);
       }
       
-  if (decrement == 1) {
+  else if (decrement == 1) {
         Consumer.write(MEDIA_VOLUME_DOWN);
         if (LEDLight == 0) LEDLight = 3;
         else if (LEDLight > 0) LEDLight -= 1;
@@ -258,14 +258,14 @@ void volume(){
         decrement = 0;
         //delay(10);
       }
-  if (SW6 == 0){ //quick fan up
+  else if (SW6 == 0){ //quick fan up
         fan();
         /*Keyboard.press(KEY_LEFT_CTRL);
         Keyboard.press(KEY_TAB);          
         Keyboard.releaseAll();
         delay(50);*/
       }
-  if (SW5 == 0){ //quick fan down
+  else if (SW5 == 0){ //quick fan down
         fan();
         /*Keyboard.press(KEY_LEFT_SHIFT);
         Keyboard.press(KEY_LEFT_CTRL);
@@ -273,15 +273,15 @@ void volume(){
         Keyboard.releaseAll();
         delay(50);*/
       }
-  if (SW4 == 0) {
+  else if (SW4 == 0) {
         Consumer.write(MEDIA_PLAY_PAUSE); 
-        delay(100);
+        delay(50);
       }
-  if (SW3 == 0) {
+  else if (SW3 == 0) {
         Consumer.write(MEDIA_NEXT);
         delay(50);
       }
-  if (SW2 == 0) {
+  else if (SW2 == 0) {
         Consumer.write(MEDIA_PREVIOUS);
         delay(50);
       }
@@ -321,7 +321,7 @@ screen();
       pixels.setPixelColor(i, pixels.Color(0, 10, 0));
     }
       pixels.show(); // Show results
-      inputMode = 2;
+      inputMode = 0;
       SW1 = 1;
       delay(250);
     }
