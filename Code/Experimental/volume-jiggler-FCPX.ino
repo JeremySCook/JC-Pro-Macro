@@ -224,19 +224,20 @@ void screenFan(){
   //delay(10);
 }
 
-void volume(){
+void volume(){ //redo the change mode code to be part of main loop & refer to an array
 
-//====Pixels indicate input mode==============
+//====change mode ==============
 
-//  pixels.clear();
-//  for(int i=0; i<NUMPIXELS; i++){
-//    pixels.setPixelColor(i, pixels.Color(10, 0, 0));
-//  }
-//  pixels.show(); // Show results
+  if ((SW6 == 0) && (SW5 == 0)){ 
+  inputMode = 1;
+  SW6 = 1;
+  SW5 = 1;
+  delay(250);
+  } 
 
 //===============================================
 
-  if (increment == 1) {
+  else if (increment == 1) {
         Consumer.write(MEDIA_VOLUME_UP);
         if (LEDLight == 3) LEDLight = 0;
         else if (LEDLight < 3) LEDLight += 1;
@@ -289,11 +290,6 @@ void volume(){
 
 screen();
 
-  if (SW1 == 0){ 
-  inputMode = 1;
-  SW1 = 1;
-  delay(200);
-  }
 }
 
 void jiggler(){
@@ -316,14 +312,15 @@ void jiggler(){
 
 screen();      
       
-      if (SW1 == 0){ 
+      if ((SW6 == 0) && (SW5 == 0)){ 
       pixels.clear();
       for(int i=0; i<NUMPIXELS; i++){
       pixels.setPixelColor(i, pixels.Color(0, 10, 0));
     }
       pixels.show(); // Show results
       inputMode = 4;
-      SW1 = 1;
+      SW6 = 1;
+      SW5 = 1;
       delay(250);
     }
 }
@@ -461,7 +458,8 @@ void FCPX(){
 
   if ((SW6 == 0) && (SW5 == 0)){ 
   inputMode = 0;
-  SW1 = 1;
+  SW6 = 1;
+  SW5 = 1;
   delay(250);
   }
 //=============================
