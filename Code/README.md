@@ -1,5 +1,7 @@
 ## Standard Code
 
+![image](input-modes.png)
+
 Current standard code (ProMacro.ino) is written and tested on a Macintosh -  
 should work with a PC or Linux, possibly with some modifications.
 
