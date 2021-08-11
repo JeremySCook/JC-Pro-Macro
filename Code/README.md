@@ -11,7 +11,7 @@ Recently made some code changes, so LEDs are not tested as of now.
 Note that after initial install, GND and RST pins may need to be shorted together  
 momentarily after hitting upload in the Arduino IDE in order to reprogram.
 
-## Slihter.io Mode & FCPX Mode
+## Alternative Modes Slihter.io Mode & FCPX
 
 Additional modes are included in the standard code and can be accessed by modifying the array shown below. Modes  
 will switch from the 0 indexed number in the array, to the next one and so forth. So if you want your controller to  
