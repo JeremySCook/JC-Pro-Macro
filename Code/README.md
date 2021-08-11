@@ -1,6 +1,6 @@
 ## Standard Code
 
-Current standard code (ProMacro.ino) is written and tested on a Macintosh -  
+Current standard code (ProMacroStandard.ino) is written and tested on a Macintosh -  
 should work with a PC or Linux, possibly with some modifications.
 
 Includes a mode for media control and browser tabbing, as well as a "jiggle" mode to keep your computer awake.
