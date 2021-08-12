@@ -33,7 +33,13 @@ bool nascar = 0;
 long newNascarTurnTime = 0;
 long oldNascarTurnTime = 0;
 
-int modeArray[] = {0, 1}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3} to access all modes
+int fanSpeed = 0;
+bool fanPulse = 0;
+long newPulseTime = 0;
+long oldPulseTime = 0;
+int fanRPM = 0;
+
+int modeArray[] = {0, 1}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4} to access all modes
 int inputModeIndex = 0;
 int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
@@ -177,6 +183,7 @@ if (inputMode == 0) volume();
 if (inputMode == 1) jiggler();
 if (inputMode == 2) slitherIO();
 if (inputMode == 3) FCPX();
+if (inputMode == 4) fan();
 
 //Serial.println(inputMode);
 
@@ -400,6 +407,33 @@ void FCPX(){ //works with new code
       }
 }
 
+void fan(){
+  if (SW6 == 0){
+    if (fanSpeed < 5){
+    ++fanSpeed;
+    }
+    delay(20);
+  }
+  if (SW5 == 0){
+    if (fanSpeed > 0){
+    --fanSpeed;
+    }
+    delay(20);
+  }
+int fanSpeedScaled = map(fanSpeed, 0, 5, 0, 255);
+analogWrite(6, fanSpeedScaled);
+//Serial.print(fanSpeed); Serial.print(" "); Serial.println(fanSpeedScaled);
+
+if(fanPulse == 0){
+  newPulseTime = millis();
+  fanRPM = (newPulseTime - oldPulseTime);
+  oldPulseTime = newPulseTime;
+}
+
+screenFan();
+
+}
+
 void screen(){
   display.clearDisplay();
   display.invertDisplay(0);
@@ -415,6 +449,23 @@ void screen(){
   display.print(SW4);
   display.print(SW5);
   display.print(SW6);
+  display.print(inputMode);
+  display.display();
+  //Serial.println(SW1);
+  //delay(10);
+}
+
+void screenFan(){
+  display.clearDisplay();
+  display.invertDisplay(0);
+  display.setCursor(0,10);
+  display.print("Fan ");
+  display.print(fanSpeed);
+  display.print(" ");
+  display.println(fanPulse);
+  display.print("T ");
+  display.print(fanRPM);
+  display.print(" ");
   display.print(inputMode);
   display.display();
   //Serial.println(SW1);
