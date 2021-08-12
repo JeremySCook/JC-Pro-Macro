@@ -32,18 +32,16 @@ int counter = 0;
 bool nascar = 0;
 long newNascarTurnTime = 0;
 long oldNascarTurnTime = 0;
+
 int fanSpeed = 0;
 bool fanPulse = 0;
 long newPulseTime = 0;
 long oldPulseTime = 0;
 int fanRPM = 0;
 
-//Long Press Setup==================================================
-
-const int LONG_PRESS_TIME  = 500; // 1000 milliseconds
-int lastState = 0;  // the previous state from the input pin
-unsigned long pressedTime  = 0;
-unsigned long releasedTime = 0;
+int modeArray[] = {0, 1, 3, 2}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4} to access all modes
+int inputModeIndex = 0;
+int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
 // Encoder setup =============================================
 
@@ -89,16 +87,14 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 //============================================================
 
 void setup() {
-  //Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(4, INPUT_PULLUP); //SW1 pushbutton (encoder button)
   pinMode(15, INPUT_PULLUP); //SW2 pushbutton
   pinMode(A0, INPUT_PULLUP); //SW3 pushbutton
   pinMode(A1, INPUT_PULLUP); //SW4 pushbutton
   pinMode(A2, INPUT_PULLUP); //SW5 pushbutton
   pinMode(A3, INPUT_PULLUP); //SW6 pushbutton
-  pinMode(6, OUTPUT); //PWM CONTROL FOR FAN
-  pinMode(7, INPUT); //RPM INPUT VALUE
-
+  analogWrite(6, 0);
   randomSeed(analogRead(A9));
      
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
@@ -120,7 +116,7 @@ void setup() {
   display.setTextSize(3); 
 
 //setup keyboard and mouse input
-//perhaps add in a delay so that you can program before this starts up
+//perhaps cound add in a delay so that you can program before this starts up
 Mouse.begin();
 Keyboard.begin();
 //BootKeyboard.begin(); - BootKeyboard use appears to give problems w/ Macintosh
@@ -147,7 +143,6 @@ void loop() {
   SW4 = digitalRead(A1);
   SW5 = digitalRead(A2);
   SW6 = digitalRead(A3);
-  fanPulse = digitalRead(7);
 
   newPosition = myEnc.read();
   
@@ -162,68 +157,39 @@ void loop() {
     oldPosition = myEnc.read();
   }
 
-  //oldPosition = newPosition;
-    
-  //delay(100); **need a better way to debounce, or to send a single keystroke - maybe sense
-  //when it's "off" as well and wait for next cycle
-  //have some sort of secondary oldPosition comparison?
+//=========change mode=================
+
+   if ((SW6 == 0) && (SW5 == 0)){ 
+      if (inputModeIndex < modeArrayLength){
+        inputModeIndex++;
+        inputMode = modeArray[inputModeIndex];
+      }
+      if (inputModeIndex == modeArrayLength){
+        inputModeIndex = 0;
+        inputMode = modeArray[inputModeIndex];
+      }
+      SW6 = 1;
+      SW5 = 1;
+      delay(250);
+    }
 
 //================================
 
-
+screen(); //need to change to only call within functions
 
 //======select input mode:=======
 
 if (inputMode == 0) volume();
 if (inputMode == 1) jiggler();
 if (inputMode == 2) slitherIO();
-if (inputMode == 3) fan();
+if (inputMode == 3) FCPX();
+if (inputMode == 4) fan();
 
 //Serial.println(inputMode);
 
 }
 
-
-void screen(){
-  display.clearDisplay();
-  display.invertDisplay(0);
-  display.setCursor(0,10);
-  display.print(increment);
-  display.print(decrement);
-  display.print(" ");
-  display.print(newPosition);
-  display.println(LEDLight);
-  display.print(SW1);
-  display.print(SW2);
-  display.print(SW3);
-  display.print(SW4);
-  display.print(SW5);
-  display.print(SW6);
-  display.print(inputMode);
-  display.display();
-  //Serial.println(SW1);
-  //delay(10);
-}
-
-
-void screenFan(){
-  display.clearDisplay();
-  display.invertDisplay(0);
-  display.setCursor(0,10);
-  display.print("Fan ");
-  display.print(fanSpeed);
-  display.print(" ");
-  display.println(fanPulse);
-  display.print("T ");
-  display.print(fanRPM);
-  display.print(" ");
-  display.print(inputMode);
-  display.display();
-  //Serial.println(SW1);
-  //delay(10);
-}
-
-void volume(){
+void volume(){ //works with new code
 
 //====Pixels indicate input mode==============
 
@@ -247,7 +213,7 @@ void volume(){
         //delay(10);
       }
       
-  else if (decrement == 1) {
+  if (decrement == 1) {
         Consumer.write(MEDIA_VOLUME_DOWN);
         if (LEDLight == 0) LEDLight = 3;
         else if (LEDLight > 0) LEDLight -= 1;
@@ -258,45 +224,37 @@ void volume(){
         decrement = 0;
         //delay(10);
       }
-  else if (SW6 == 0){ //quick fan up
-        fan();
-        /*Keyboard.press(KEY_LEFT_CTRL);
-        Keyboard.press(KEY_TAB);          
-        Keyboard.releaseAll();
-        delay(50);*/
+  if (SW6 == 0){ //tab to next browser tab Firefox or Chrome
+        fan(); //quick fan up
+        //Keyboard.press(KEY_LEFT_CTRL);
+        //Keyboard.press(KEY_TAB);          
+        //Keyboard.releaseAll();
+        //delay(50);
       }
-  else if (SW5 == 0){ //quick fan down
-        fan();
-        /*Keyboard.press(KEY_LEFT_SHIFT);
-        Keyboard.press(KEY_LEFT_CTRL);
-        Keyboard.press(KEY_TAB);
-        Keyboard.releaseAll();
-        delay(50);*/
+  if (SW5 == 0){ //tab to previous browser tab Firefox or Chrome
+        fan(); //quick fan dn
+        //Keyboard.press(KEY_LEFT_SHIFT);
+        //Keyboard.press(KEY_LEFT_CTRL);
+        //Keyboard.press(KEY_TAB);
+        //Keyboard.releaseAll();
+        //delay(50);
       }
-  else if (SW4 == 0) {
+  if (SW4 == 0) {
         Consumer.write(MEDIA_PLAY_PAUSE); 
-        delay(50);
+        delay(100);
       }
-  else if (SW3 == 0) {
+  if (SW3 == 0) {
         Consumer.write(MEDIA_NEXT);
         delay(50);
       }
-  else if (SW2 == 0) {
+  if (SW2 == 0) {
         Consumer.write(MEDIA_PREVIOUS);
         delay(50);
       }
-
-screen();
-
-  if (SW1 == 0){ 
-  inputMode = 1;
-  SW1 = 1;
-  delay(200);
-  }
 }
 
-void jiggler(){
-  //Serial.print("commence to jiggling");
+void jiggler(){ //works with new code
+  Serial.print("commence to jiggling");
       //Consumer.write(MEDIA_VOLUME_UP);
       //Consumer.write(MEDIA_VOLUME_DOWN);
       long randNumber = random(-50, 50);
@@ -312,22 +270,10 @@ void jiggler(){
       pixels.setPixelColor(1, pixels.Color(yMap, zMap, xMap));
       pixels.setPixelColor(3, pixels.Color(xMap, zMap, yMap));           
       pixels.show(); // Show results
-
-screen();      
       
-      if (SW1 == 0){ 
-      pixels.clear();
-      for(int i=0; i<NUMPIXELS; i++){
-      pixels.setPixelColor(i, pixels.Color(0, 10, 0));
-    }
-      pixels.show(); // Show results
-      inputMode = 0;
-      SW1 = 1;
-      delay(250);
-    }
 }
 
-void slitherIO() {
+void slitherIO(){ //works with new code
 //movement tracking
 int xMovements[] = {-3, -8, -14, -16, -19, -19, -16, -14, -8, -3, 3, 8, 14, 16, 19, 19, 16, 14, 8, 3, -3};
 int yMovements[] = {19, 16, 14, 8, 3, -3, -8, -14, -16, -19, -19, -16, -14, -8, -3, 3, 8, 14, 16, 19, 19};
@@ -350,7 +296,7 @@ int multiplier = 2; //changes speed of rotation
         else if (counter < 20) ++counter;
         Mouse.move(xMovements[counter], yMovements[counter]);
         
-        //Serial.print(counter); Serial.print(" "); Serial.print(xMovements[counter]); Serial.print(" "); Serial.println(yMovements[counter]);
+        Serial.print(counter); Serial.print(" "); Serial.print(xMovements[counter]); Serial.print(" "); Serial.println(yMovements[counter]);
         increment = 0;
         decrement = 0;
       }
@@ -363,7 +309,7 @@ int multiplier = 2; //changes speed of rotation
         else if (counter > 0) --counter;       
         Mouse.move(-xMovements[counter+1], -yMovements[counter+1]);
 
-        //Serial.print(counter); Serial.print(" "); Serial.print(-xMovements[counter+1]); Serial.print(" "); Serial.println(-yMovements[counter+1]);
+        Serial.print(counter); Serial.print(" "); Serial.print(-xMovements[counter+1]); Serial.print(" "); Serial.println(-yMovements[counter+1]);
         increment = 0;
         decrement = 0;
       }
@@ -401,20 +347,66 @@ if (nascar == 1){
   }
 }
 
-screen();
 
 //switch mode routine==================================================
-      if (SW1 == 0){ 
-      pixels.clear();
-      for(int i=0; i<NUMPIXELS; i++){
-      pixels.setPixelColor(i, pixels.Color(10, 0, 0));
-    }
-      pixels.show(); // Show results
-      inputMode = 3;
-      SW1 = 1;
-      delay(250);
-    }
   
+}
+
+void FCPX(){ //works with new code
+  
+  if (increment == 1) {
+        //Keyboard.press(KEY_K);
+        //Keyboard.releaseAll();       
+        Keyboard.press(HID_KEYBOARD_RIGHTARROW);
+        Keyboard.releaseAll();
+        increment = 0;
+        decrement = 0;
+        //delay(50);
+      }
+      
+  else if (decrement == 1) {
+        //Keyboard.press(KEY_K);
+        //Keyboard.releaseAll();  
+        Keyboard.press(HID_KEYBOARD_LEFTARROW);
+        Keyboard.releaseAll();
+        increment = 0;
+        decrement = 0;
+        //delay(50);
+      }
+  else if (SW6 == 0){ //Zoom in
+        Keyboard.press(KEY_LEFT_WINDOWS);
+        Keyboard.press(HID_KEYBOARD_EQUALS_AND_PLUS);    
+        Keyboard.releaseAll();
+        delay(50);
+      }
+  else if (SW5 == 0){ //Zoom out
+        Keyboard.press(KEY_LEFT_WINDOWS);
+        Keyboard.press(HID_KEYBOARD_MINUS_AND_UNDERSCORE);    
+        Keyboard.releaseAll();
+        delay(50);
+      }
+  else if (SW4 == 0) { //fwd
+        Keyboard.press(KEY_L);
+        Keyboard.releaseAll();
+        delay(50);
+      }
+  else if (SW3 == 0) { //stop
+        Keyboard.press(KEY_K);
+        Keyboard.releaseAll();
+        delay(50);
+      }
+  else if (SW2 == 0) { //BACK
+        Keyboard.press(KEY_J);
+        Keyboard.releaseAll();
+        delay(50);
+      }
+  else if (SW1 == 0) { //break all win + shift + b
+        Keyboard.press(KEY_LEFT_WINDOWS);        
+        Keyboard.press(KEY_LEFT_SHIFT);
+        Keyboard.press(KEY_B);        
+        Keyboard.releaseAll();
+        delay(50);
+      }
 }
 
 void fan(){
@@ -422,13 +414,13 @@ void fan(){
     if (fanSpeed < 5){
     ++fanSpeed;
     }
-    delay(20);
+    delay(50);
   }
   if (SW5 == 0){
     if (fanSpeed > 0){
     --fanSpeed;
     }
-    delay(20);
+    delay(50);
   }
 int fanSpeedScaled = map(fanSpeed, 0, 5, 0, 255);
 analogWrite(6, fanSpeedScaled);
@@ -442,17 +434,42 @@ if(fanPulse == 0){
 
 screenFan();
 
-//switch mode routine==================================================
-      if (SW1 == 0){ 
-      pixels.clear();
-      for(int i=0; i<NUMPIXELS; i++){
-      pixels.setPixelColor(i, pixels.Color(10, 0, 0));
-    }
-      pixels.show(); // Show results     
-      inputMode = 0;
-      SW1 = 1;
-      delay(250);
-    }
 }
 
-//void FCPX() mode
+void screen(){
+  display.clearDisplay();
+  display.invertDisplay(0);
+  display.setCursor(0,10);
+  display.print(increment);
+  display.print(decrement);
+  display.print(" ");
+  display.print(newPosition);
+  display.println(LEDLight);
+  display.print(SW1);
+  display.print(SW2);
+  display.print(SW3);
+  display.print(SW4);
+  display.print(SW5);
+  display.print(SW6);
+  display.print(inputMode);
+  display.display();
+  //Serial.println(SW1);
+  //delay(10);
+}
+
+void screenFan(){
+  display.clearDisplay();
+  display.invertDisplay(0);
+  display.setCursor(0,10);
+  display.print("Fan ");
+  display.print(fanSpeed);
+  display.print(" ");
+  display.println(fanPulse);
+  display.print("T ");
+  display.print(fanRPM);
+  display.print(" ");
+  display.print(inputMode);
+  display.display();
+  //Serial.println(SW1);
+  //delay(10);
+}
