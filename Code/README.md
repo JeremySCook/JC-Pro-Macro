@@ -15,7 +15,7 @@ momentarily after hitting upload in the Arduino IDE in order to reprogram.
 
 Additional modes are included in the standard code and can be accessed by modifying the array shown below. Modes  
 will switch from the 0 indexed number in the array, to the next one and so forth. So if you want your controller to  
-go: volume-jiggle-slither, change it to {0, 1, 2}. volume-FCPX would be {0, 4}. All current modes would be {0, 1, 2, 3}
+go: volume-jiggle-slither, change it to {0, 1, 2}. volume-FCPX would be {0, 3}. All current modes would be {0, 1, 2, 3, 4}
 
 ![image](line36.png)
 
