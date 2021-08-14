@@ -15,7 +15,7 @@ Also, due to differences in manufacture, line 50:
 
 Encoder myEnc(0,1); //if rotation is backwards, swap 0 and 1
 
-may need to be swapped as noted
+may need to be swapped as noted depending on the encoder
 
 ## Alternative Modes Slihter.io Mode & FCPX
 
