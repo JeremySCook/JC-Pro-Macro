@@ -11,6 +11,12 @@ Recently made some code changes, so LEDs are not tested as of now.
 Note that after initial install, GND and RST pins may need to be shorted together  
 momentarily after hitting upload in the Arduino IDE in order to reprogram.
 
+Also, due to differences in manufacture, line 50:
+
+Encoder myEnc(0,1); //if rotation is backwards, swap 0 and 1
+
+may need to be swapped as noted
+
 ## Alternative Modes Slihter.io Mode & FCPX
 
 Additional modes are included in the standard code and can be accessed by modifying the array shown below. Modes  
