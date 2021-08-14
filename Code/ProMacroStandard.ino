@@ -47,7 +47,7 @@ int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
 #include <Encoder.h>
 #include <HID-Project.h>
-Encoder myEnc(0,1);
+Encoder myEnc(0,1); //if rotation is backwards, swap 0 and 1
 
 // Screen setup =============================================
 
