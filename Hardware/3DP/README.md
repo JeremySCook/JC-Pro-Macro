@@ -3,3 +3,6 @@
 * 3DP-base - can be used as a base instead of standoffs and laser cut acrylic
 * Assembl-Jig - used to facilitate assembly of device
 * Knob - 3D-printed knob for EC11 encoder - purchased versions may be prettier
+* PR-giganto-knob - as pictured below, made by Pat Regan via customizer: https://www.thingiverse.com/thing:2220561
+
+![image](PR-giganto-knob.jpg)
