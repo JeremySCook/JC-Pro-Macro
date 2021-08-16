@@ -39,7 +39,7 @@ long newPulseTime = 0;
 long oldPulseTime = 0;
 int fanRPM = 0;
 
-int modeArray[] = {0, 1, 3, 2}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4} to access all modes
+int modeArray[] = {0, 1, 3}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4} to access all modes
 int inputModeIndex = 0;
 int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
