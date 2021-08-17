@@ -191,16 +191,6 @@ if (inputMode == 4) fan();
 
 void volume(){ //works with new code
 
-//====Pixels indicate input mode==============
-
-//  pixels.clear();
-//  for(int i=0; i<NUMPIXELS; i++){
-//    pixels.setPixelColor(i, pixels.Color(10, 0, 0));
-//  }
-//  pixels.show(); // Show results
-
-//===============================================
-
   if (increment == 1) {
         Consumer.write(MEDIA_VOLUME_UP);
         if (LEDLight == 3) LEDLight = 0;
@@ -252,6 +242,7 @@ void volume(){ //works with new code
 }
 
 void jiggler(){ //works with new code
+  
   Serial.print("commence to jiggling");
       //Consumer.write(MEDIA_VOLUME_UP);
       //Consumer.write(MEDIA_VOLUME_DOWN);
@@ -357,6 +348,11 @@ void FCPX(){ //works with new code
         //Keyboard.releaseAll();       
         Keyboard.press(HID_KEYBOARD_RIGHTARROW);
         Keyboard.releaseAll();
+        if (LEDLight == 3) LEDLight = 0;
+        else if (LEDLight < 3) LEDLight += 1;
+        pixels.clear();
+        pixels.setPixelColor(LEDCircle[LEDLight], pixels.Color(0, 10, 0));
+        pixels.show(); // Show results
         increment = 0;
         decrement = 0;
         //delay(50);
@@ -367,6 +363,11 @@ void FCPX(){ //works with new code
         //Keyboard.releaseAll();  
         Keyboard.press(HID_KEYBOARD_LEFTARROW);
         Keyboard.releaseAll();
+        if (LEDLight == 0) LEDLight = 3;
+        else if (LEDLight > 0) LEDLight -= 1;
+        pixels.clear();
+        pixels.setPixelColor(LEDCircle[LEDLight], pixels.Color(0, 10, 0));
+        pixels.show(); // Show results
         increment = 0;
         decrement = 0;
         //delay(50);
