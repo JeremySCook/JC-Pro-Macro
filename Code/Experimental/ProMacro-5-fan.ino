@@ -47,7 +47,7 @@ int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
 #include <Encoder.h>
 #include <HID-Project.h>
-Encoder myEnc(0,1);
+Encoder myEnc(0,1); //if rotation is backwards, swap 0 and 1
 
 // Screen setup =============================================
 
@@ -94,7 +94,8 @@ void setup() {
   pinMode(A1, INPUT_PULLUP); //SW4 pushbutton
   pinMode(A2, INPUT_PULLUP); //SW5 pushbutton
   pinMode(A3, INPUT_PULLUP); //SW6 pushbutton
-  analogWrite(6, 0);
+  fan();
+
   randomSeed(analogRead(A9));
      
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
@@ -191,16 +192,6 @@ if (inputMode == 4) fan();
 
 void volume(){ //works with new code
 
-//====Pixels indicate input mode==============
-
-//  pixels.clear();
-//  for(int i=0; i<NUMPIXELS; i++){
-//    pixels.setPixelColor(i, pixels.Color(10, 0, 0));
-//  }
-//  pixels.show(); // Show results
-
-//===============================================
-
   if (increment == 1) {
         Consumer.write(MEDIA_VOLUME_UP);
         if (LEDLight == 3) LEDLight = 0;
@@ -225,14 +216,14 @@ void volume(){ //works with new code
         //delay(10);
       }
   if (SW6 == 0){ //tab to next browser tab Firefox or Chrome
-        fan(); //quick fan up
+        fan();
         //Keyboard.press(KEY_LEFT_CTRL);
         //Keyboard.press(KEY_TAB);          
         //Keyboard.releaseAll();
         //delay(50);
       }
   if (SW5 == 0){ //tab to previous browser tab Firefox or Chrome
-        fan(); //quick fan dn
+        fan();
         //Keyboard.press(KEY_LEFT_SHIFT);
         //Keyboard.press(KEY_LEFT_CTRL);
         //Keyboard.press(KEY_TAB);
@@ -254,6 +245,7 @@ void volume(){ //works with new code
 }
 
 void jiggler(){ //works with new code
+  
   Serial.print("commence to jiggling");
       //Consumer.write(MEDIA_VOLUME_UP);
       //Consumer.write(MEDIA_VOLUME_DOWN);
@@ -359,6 +351,11 @@ void FCPX(){ //works with new code
         //Keyboard.releaseAll();       
         Keyboard.press(HID_KEYBOARD_RIGHTARROW);
         Keyboard.releaseAll();
+        if (LEDLight == 3) LEDLight = 0;
+        else if (LEDLight < 3) LEDLight += 1;
+        pixels.clear();
+        pixels.setPixelColor(LEDCircle[LEDLight], pixels.Color(0, 10, 0));
+        pixels.show(); // Show results
         increment = 0;
         decrement = 0;
         //delay(50);
@@ -369,6 +366,11 @@ void FCPX(){ //works with new code
         //Keyboard.releaseAll();  
         Keyboard.press(HID_KEYBOARD_LEFTARROW);
         Keyboard.releaseAll();
+        if (LEDLight == 0) LEDLight = 3;
+        else if (LEDLight > 0) LEDLight -= 1;
+        pixels.clear();
+        pixels.setPixelColor(LEDCircle[LEDLight], pixels.Color(0, 10, 0));
+        pixels.show(); // Show results
         increment = 0;
         decrement = 0;
         //delay(50);
@@ -414,13 +416,13 @@ void fan(){
     if (fanSpeed < 5){
     ++fanSpeed;
     }
-    delay(50);
+    delay(20);
   }
   if (SW5 == 0){
     if (fanSpeed > 0){
     --fanSpeed;
     }
-    delay(50);
+    delay(20);
   }
 int fanSpeedScaled = map(fanSpeed, 0, 5, 0, 255);
 analogWrite(6, fanSpeedScaled);
