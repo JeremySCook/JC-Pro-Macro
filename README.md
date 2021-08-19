@@ -7,7 +7,7 @@ Macro keypad and rotary input based on the ATmega32U4 Pro Micro
 # Videos:
 
 Development:       https://www.youtube.com/watch?v=g-XJLiv03rI  
-Assembly process:  https://www.youtube.com/watch?v=VwfGT706jW0 
+Assembly process:  https://www.youtube.com/watch?v=au07GKwa_J8
 
 # Info
 
