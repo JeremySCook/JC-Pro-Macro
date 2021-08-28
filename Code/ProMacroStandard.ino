@@ -32,6 +32,8 @@ int counter = 0;
 bool nascar = 0;
 long newNascarTurnTime = 0;
 long oldNascarTurnTime = 0;
+long newBeatTime = 0;
+long oldBeatTime = 0;
 
 int fanSpeed = 0;
 bool fanPulse = 0;
@@ -40,7 +42,7 @@ long oldPulseTime = 0;
 int fanRPM = 0;
 char toneNote;
 
-int modeArray[] = {0, 1}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4, 5} to access all modes
+int modeArray[] = {0, 1, 5}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4, 5} to access all modes
 int inputModeIndex = 0;
 int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
@@ -447,7 +449,7 @@ void music(){
 //
 
 pinMode(7, OUTPUT);
-digitalWrite(7, LOW); 
+digitalWrite(7, LOW);
 
   if (SW6 == 0){
     tone(6, 440, 100); //A4
@@ -473,15 +475,31 @@ digitalWrite(7, LOW);
     toneNote = ' ';
   }
 
+  newBeatTime = millis();
+  if ((newBeatTime - oldBeatTime) > 500){
+  digitalWrite(7, HIGH);
+  delay(35);
+  digitalWrite(7, LOW);
+    oldBeatTime = newBeatTime;
+  }
 
-  if (increment == 1){
+  if (decrement == 1){
   digitalWrite(7, HIGH);
   delay(35);
   digitalWrite(7, LOW);
   increment = 0;
   decrement = 0;
   }
+
   if (decrement == 1){
+  digitalWrite(7, HIGH);
+  delay(35);
+  digitalWrite(7, LOW);
+  increment = 0;
+  decrement = 0;
+  }
+
+  if (increment == 1){
   digitalWrite(7, HIGH);
   delay(35);
   digitalWrite(7, LOW);
