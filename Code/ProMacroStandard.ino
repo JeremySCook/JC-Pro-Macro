@@ -38,8 +38,9 @@ bool fanPulse = 0;
 long newPulseTime = 0;
 long oldPulseTime = 0;
 int fanRPM = 0;
+char toneNote;
 
-int modeArray[] = {0, 1}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4} to access all modes
+int modeArray[] = {0, 1}; //adjust this array to modify sequence of modes - as written, change to {0, 1, 2, 3, 4, 5} to access all modes
 int inputModeIndex = 0;
 int modeArrayLength = (sizeof(modeArray) / sizeof(modeArray[0]));
 
@@ -175,7 +176,7 @@ void loop() {
 
 //================================
 
-screen(); //need to change to only call within functions
+//screen(); //need to change to only call within functions
 
 //======select input mode:=======
 
@@ -184,6 +185,7 @@ if (inputMode == 1) jiggler();
 if (inputMode == 2) slitherIO();
 if (inputMode == 3) FCPX();
 if (inputMode == 4) fan();
+if (inputMode == 5) music();
 
 //Serial.println(inputMode);
 
@@ -239,6 +241,7 @@ void volume(){ //works with new code
         Consumer.write(MEDIA_PREVIOUS);
         delay(50);
       }
+screen();
 }
 
 void jiggler(){ //works with new code
@@ -259,7 +262,9 @@ void jiggler(){ //works with new code
       pixels.setPixelColor(1, pixels.Color(yMap, zMap, xMap));
       pixels.setPixelColor(3, pixels.Color(xMap, zMap, yMap));           
       pixels.show(); // Show results
-      
+
+screen(); 
+    
 }
 
 void slitherIO(){ //works with new code
@@ -337,7 +342,7 @@ if (nascar == 1){
 }
 
 
-//switch mode routine==================================================
+screen();
   
 }
 
@@ -406,6 +411,7 @@ void FCPX(){ //works with new code
         Keyboard.releaseAll();
         delay(50);
       }
+screen();
 }
 
 void fan(){
@@ -434,6 +440,59 @@ if(fanPulse == 0){
 screenFan();
 
 }
+
+void music(){
+
+//attach small buzzer to pin 6 on aux jack
+//
+
+pinMode(7, OUTPUT);
+digitalWrite(7, LOW); 
+
+  if (SW6 == 0){
+    tone(6, 440, 100); //A4
+    toneNote = 'A';
+  }
+  else if (SW5 == 0){
+    tone(6, 494, 100); //B4
+    toneNote = 'B';
+  }
+  else if (SW4 == 0){
+    tone(6, 523, 100); //C5
+    toneNote = 'C';
+  }  
+  else if (SW3 == 0){
+    tone(6, 587, 100); //D5
+    toneNote = 'D';
+  }
+  else if (SW2 == 0){
+    tone(6, 659, 100); //E5
+    toneNote = 'E';
+  }
+  else {
+    toneNote = ' ';
+  }
+
+
+  if (increment == 1){
+  digitalWrite(7, HIGH);
+  delay(35);
+  digitalWrite(7, LOW);
+  increment = 0;
+  decrement = 0;
+  }
+  if (decrement == 1){
+  digitalWrite(7, HIGH);
+  delay(35);
+  digitalWrite(7, LOW);
+  increment = 0;
+  decrement = 0;
+  }
+ 
+screenNote();
+}
+
+//======================.96" oled screen=======================
 
 void screen(){
   display.clearDisplay();
@@ -468,6 +527,24 @@ void screenFan(){
   display.print(fanRPM);
   display.print(" ");
   display.print(inputMode);
+  display.display();
+  //Serial.println(SW1);
+  //delay(10);
+}
+
+void screenNote(){ //now used for notes
+  display.clearDisplay();
+  display.invertDisplay(0);
+  display.setCursor(0,10);
+  display.print("TONE ");
+  display.println(toneNote);
+  display.print(SW1);
+  display.print(SW2);
+  display.print(SW3);
+  display.print(SW4);
+  display.print(SW5);
+  display.print(SW6);
+  display.print(inputMode); 
   display.display();
   //Serial.println(SW1);
   //delay(10);
