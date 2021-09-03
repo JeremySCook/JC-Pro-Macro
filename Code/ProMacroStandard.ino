@@ -266,7 +266,7 @@ void jiggler(){ //works with new code
       pixels.setPixelColor(3, pixels.Color(xMap, zMap, yMap));           
       pixels.show(); // Show results
 
-screen(); 
+screenJiggle(); 
     
 }
 
@@ -414,7 +414,7 @@ void FCPX(){ //works with new code
         Keyboard.releaseAll();
         delay(50);
       }
-screen();
+screenFCPX();
 }
 
 void fan(){
@@ -562,6 +562,15 @@ void screenFan(){
   //delay(10);
 }
 
+void screenJiggle(){
+  display.clearDisplay();
+  display.invertDisplay(0);
+  display.setCursor(0,10);
+  display.println("Rando");
+  display.print("Mouse!");
+  display.display();
+}
+
 void screenNote(){ //now used for notes
   display.clearDisplay();
   display.invertDisplay(0);
@@ -578,4 +587,13 @@ void screenNote(){ //now used for notes
   display.display();
   //Serial.println(SW1);
   //delay(10);
+}
+
+void screenFCPX(){
+  display.clearDisplay();
+  display.invertDisplay(0);
+  display.setCursor(0,10);
+  display.println("FCPX");
+  display.print("Sh0rcut");
+  display.display();
 }
