@@ -1,13 +1,9 @@
-//Example for JC Pro Macro board
+//Example for JC Pro Macro 2 board WIP
 //set up to work in Mac OS
 //Includes support for 1306 display
 //Reference: https://github.com/NicoHood/HID/blob/master/src/KeyboardLayouts/ImprovedKeylayouts.h
 //Reference: https://arduinogetstarted.com/tutorials/arduino-button-long-press-short-press 
 //
-//To do:
-//Figure out what to do with bottom support - remake offset so locks in?
-//caps lock code? - does not work properly on Mac it seems
-
 //========================================================
 
 #include <SPI.h>
