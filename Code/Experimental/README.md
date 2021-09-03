@@ -6,5 +6,3 @@ ProMacro-6-music.ino allows you to connect a small speaker to GPIO pin 7 to play
 Demo: https://twitter.com/JeremySCook/status/1423705079153139716
 
 ![image](tone.jpg)
-
-Amazon links are affiliate, meaning I get a small percentage of sales.
