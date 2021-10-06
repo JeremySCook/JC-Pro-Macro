@@ -24,3 +24,5 @@ of 4 GPIO pins that can be used to control external devices (perhaps a small fan
 
 Uses HID Project software by NicoHood: https://github.com/NicoHood/HID  
 My previous rotary input project: https://github.com/JeremySCook/RotaryControl
+
+[![Youtube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCrCbscxHLiaauK4H478ArRQ) [![Twitter URL](https://img.shields.io/twitter/follow/jeremyscook?style=flat-square&logo=twitter)](https://twitter.com/jeremyscook)
