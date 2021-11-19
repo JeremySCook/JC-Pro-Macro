@@ -1,3 +1,9 @@
+## Programming
+
+**!! After initial install, GND and RST pins may need to be shorted together  
+momentarily to reset after hitting upload in the Arduino IDE for reprogramming.
+Quickly resetting twice in sequence may give you more time to load the program !!**
+
 ## Standard Code
 
 Current standard code (ProMacroStandard.ino) is written and tested on a Macintosh -  
@@ -5,11 +11,6 @@ should work with a PC or Linux, possibly with some modifications.
 
 Includes a mode for media control and browser tabbing, as well as a "jiggle" mode to keep your computer awake.
 Switch modes by simultaneously pressing upper-right key, and the key directly below that.
-
-Recently made some code changes, so LEDs are not tested as of now.
-
-Note that after initial install, GND and RST pins may need to be shorted together  
-momentarily after hitting upload in the Arduino IDE in order to reprogram.
 
 Also, due to differences in manufacture, line 50:
 
