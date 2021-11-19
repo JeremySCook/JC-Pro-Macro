@@ -2,7 +2,7 @@
 
 Macro keypad and rotary input based on the ATmega32U4 Pro Micro
 
-JC Pro Macro 2 coming soon on Kickstarter: https://www.kickstarter.com/projects/291892408/jc-pro-macro-2-mechanical-keypad
+Enhanced JC Pro Macro 2: https://github.com/JeremySCook/JC-Pro-Macro-2/
 
 ![image](JCPM1.jpg)
 
