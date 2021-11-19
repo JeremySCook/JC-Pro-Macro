@@ -5,7 +5,7 @@ Macro keypad and rotary input based on the ATmega32U4 Pro Micro
 Enhanced JC Pro Macro 2: https://github.com/JeremySCook/JC-Pro-Macro-2/
 
 **!! After initial install, GND and RST pins may need to be shorted together  
-momentarily to reset after hitting upload in the Arduino IDE for reprogramming.
+momentarily to reset after hitting upload in the Arduino IDE for reprogramming.  
 Quickly resetting twice in sequence may give you more time to load the program !!**
 
 ![image](JCPM1.jpg)
