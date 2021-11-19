@@ -1,4 +1,7 @@
-3D printed accessories for JCPM
+JC Pro Macro Model.step is the assembly 3D file that is openable in a variety of CAD packages.  
+Not particularly "clean" but potentially good for reference if you want to build on the design.
+
+**3D printed accessories for JCPM**
 
 * 3DP-base - can be used as a base instead of standoffs and laser cut acrylic
 * Assembl-Jig - used to facilitate assembly of device
