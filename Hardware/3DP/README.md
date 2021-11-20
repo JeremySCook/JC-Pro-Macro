@@ -7,5 +7,6 @@ Not particularly "clean" but potentially good for reference if you want to build
 * Assembl-Jig - used to facilitate assembly of device
 * Knob - 3D-printed knob for EC11 encoder
 * PR-giganto-knob - as pictured below, made by [Pat Regan](https://twitter.com/patsheadcom) via [customizer](https://www.thingiverse.com/thing:2220561)
+* 3DP-base_m3_heatset_flaszlo11.stl, made by flaszlo11
 
 ![image](PR-giganto-knob.jpg)
